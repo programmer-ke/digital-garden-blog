@@ -1,3 +1,5 @@
-public/*
+public/
 *.elc
 .org-timestamps/*
+tags/
+scripts/
