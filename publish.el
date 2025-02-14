@@ -7,9 +7,7 @@
 
 (require 'ox-publish)
 
-
 ;;; Tag files functionality
-
 (defun extract-all-tags ()
   "Return a list of all tags from #+FILETAGS and headline inline-tags."
   (let (tags)
@@ -124,6 +122,12 @@ PREFIX: String to prepend to file paths in links"
 	     (insert-file-contents "~/projects/digital-garden-blog/html-templates/postamble.html") (buffer-string))
 	   (format-time-string this-date-format (plist-get plist :time)) (plist-get plist :creator))))
 
+(defun prepare-tag-files (plist)
+  (let ((tag-map (build-tag-file-mapping "~/digital-garden")))
+    (generate-tag-files 
+     tag-map
+     "~/projects/digital-garden-blog/tags"
+     "../")))
 
 (setq org-publish-project-alist
       `(("posts"
@@ -138,8 +142,6 @@ PREFIX: String to prepend to file paths in links"
          :sitemap-filename "index.org"
          :sitemap-style list
 	 :sitemap-sort-files anti-chronologically
-
-	 :makeindex t
 
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
@@ -160,10 +162,26 @@ PREFIX: String to prepend to file paths in links"
 	 
          :email "krm@vger"
          :with-creator t)
+	("tags"
+         :base-directory "~/projects/digital-garden-blog/tags"
+         :base-extension "org"
+         :publishing-directory "public/tags/"
+         :recursive t
+	 :preparation-function prepare-tag-files
+         :publishing-function org-html-publish-to-html
+
+         :auto-sitemap t
+         :sitemap-title "Tag Index"
+         :sitemap-filename "index.org"
+         :sitemap-style list
+
+	 :html-head ,(blog/website-html-head)
+	 :html-preamble blog/website-html-preamble
+	 :html-postamble blog/website-html-postamble)
         ("css"
          :base-directory "css/"
          :base-extension "css"
          :publishing-directory "public/css"
          :publishing-function org-publish-attachment
          :recursive t)
-        ("all" :components ("posts" "css"))))
+        ("all" :components ("posts" "pages" "css" "tags"))))
