@@ -3,3 +3,4 @@ public/
 .org-timestamps/*
 tags/
 scripts/
+pkgs/*

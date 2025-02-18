@@ -1,11 +1,21 @@
-(add-to-list 'load-path "~/.emacs.d/elpa/htmlize-1.58")
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa/"))
-(mapc (lambda (pkg-dir)
-        (when (file-directory-p pkg-dir)
-          (add-to-list 'load-path pkg-dir)))
-      (directory-files (expand-file-name "~/.emacs.d/elpa/") t "\\w+"))
+;; install packages
+(require 'package)
+(setq package-user-dir "~/projects/digital-garden-blog/pkgs") ;; Installation path
+(package-initialize)  ;; Auto-adds package dirs to load-path
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+(setq package-list
+      '(htmlize ox-rss))
+
+;; install packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
 
 (require 'ox-publish)
+(require 'ox-rss)
 
 ;;; Tag files functionality
 (defun extract-all-tags ()
@@ -26,6 +36,7 @@
           (push tag tags))))
 
     (delete-dups tags)))
+
 
 (defun build-tag-file-mapping (directory)
   "Return hash table mapping tags to lists of files containing them."
@@ -178,10 +189,22 @@ PREFIX: String to prepend to file paths in links"
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble)
+	("rss"
+	  :base-directory "~/digital-garden/"
+	  :base-extension "org"
+	  :html-link-home "https://digitalgarden.ken.ke/"
+	  :html-link-use-abs-url t
+	  :rss-extension "xml"
+	  :publishing-directory "public/"
+	  :publishing-function org-rss-publish-to-rss
+	  :section-numbers nil
+	  :exclude ".*"            ;; To exclude all files...
+	  :include ("index.org")   ;; ... except index.org.
+	  :table-of-contents nil)
         ("css"
          :base-directory "css/"
          :base-extension "css"
          :publishing-directory "public/css"
          :publishing-function org-publish-attachment
          :recursive t)
-        ("all" :components ("posts" "pages" "css" "tags"))))
+        ("all" :components ("posts" "pages" "css" "tags" "rss"))))
