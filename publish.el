@@ -96,15 +96,6 @@ PREFIX: String to prepend to file paths in links"
 ;;           tag-map))
 
 
-;; possible approach for hooking in the tags functionality
-;;   ‘:preparation-function’
-;; 
-;;     Function to be called before publishing this project.  This
-;;     may also be a list of functions.  Preparation functions are
-;;     called with the project properties list as their sole
-;;     argument.
-
-
 (defun blog/website-html-head ()
   (with-temp-buffer
     (insert-file-contents "~/projects/digital-garden-blog/html-templates/head.html")
@@ -157,7 +148,8 @@ PREFIX: String to prepend to file paths in links"
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble
-	 
+	 :html-html5-fancy nil
+	 :html-doctype "html5"
          :author "krm"
          :email "krm@vger"
          :with-creator t)
@@ -170,6 +162,8 @@ PREFIX: String to prepend to file paths in links"
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble
+	 :html-html5-fancy nil
+	 :html-doctype "html5"
 	 
          :email "krm@vger"
          :with-creator t)
@@ -185,6 +179,8 @@ PREFIX: String to prepend to file paths in links"
          :sitemap-title "Tag Index"
          :sitemap-filename "index.org"
          :sitemap-style list
+	 :html-html5-fancy nil
+	 :html-doctype "html5"
 
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
