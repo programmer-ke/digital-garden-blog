@@ -1,16 +1,42 @@
 <link rel='stylesheet' type='text/css' href='/css/mvp.css'/>
 <style type="text/css">
+
+  body {
+      padding-top: 1rem;
+  }
+  
   header, footer {
       max-width: 60em;
       padding: 1rem;
   }
 
+  footer p {
+      text-align: center;
+  }
+
   #content {
-      padding: 1rem;
+      padding: 0em 1rem;
   }
 
   nav {
       margin-bottom: 0rem;
+      justify-content: space-evenly;
+  }
+
+  brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  brand img {
+      margin-right: 1rem;
+  }
+
+  @media (max-width: 768px) {
+      nav ul li {
+	  width: unset;
+      }
   }
   
 </style>
