@@ -3,6 +3,7 @@
 .PHONY: all publish publish_no_init
 
 all: publish
+reset: clean publish
 
 publish: publish.el
 	@echo "Publishing... with current Emacs configurations."
