@@ -209,4 +209,10 @@ PREFIX: String to prepend to file paths in links"
          :publishing-directory "public/img"
          :publishing-function org-publish-attachment
          :recursive t)
-        ("all" :components ("posts" "pages" "css" "img" "tags" "rss"))))
+	("icons"
+         :base-directory "icons/"
+         :base-extension "\\(png\\|ico\\|webmanifest\\)"
+         :publishing-directory "public/"
+         :publishing-function org-publish-attachment
+         :recursive t)
+        ("all" :components ("posts" "pages" "css" "img" "icons" "tags" "rss"))))
