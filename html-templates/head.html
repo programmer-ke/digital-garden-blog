@@ -17,6 +17,7 @@
 
   #content {
       padding: 0em 1rem;
+      max-width: 80ch;
   }
 
   nav {
@@ -40,6 +41,22 @@
 	  width: unset;
       }
   }
+
+
+ @media (prefers-color-scheme: dark) {
+   :root[color-mode="user"] {
+       pre.src {
+	   background-color: unset;
+       }
+
+       .tag {
+	   background-color: #492e08;
+       }
+   }
+ }
+
+
+  
   
 </style>
 
@@ -49,3 +66,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
+
+
+<script type="text/javascript">
+  // enable user preference for colour mode
+  document.documentElement.setAttribute("color-mode", "user")
+</script>
