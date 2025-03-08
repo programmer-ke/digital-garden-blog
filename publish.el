@@ -124,6 +124,33 @@ PREFIX: String to prepend to file paths in links"
 	     (insert-file-contents "~/projects/digital-garden-blog/html-templates/postamble.html") (buffer-string))
 	   (format-time-string this-date-format (plist-get plist :time)) (plist-get plist :creator))))
 
+
+(defun title-case-transform (str)
+  "Convert STR with underscores/hyphens to title case words separated by spaces.
+Example: 'legal-docs' -> 'Legal Docs', 'collapsing_dominoes' -> 'Collapsing Dominoes'"
+  (let ((words (split-string str "[_-]" t)))
+    (mapconcat 'identity
+               words
+               " ")))
+
+(defun blog/org-sitemap-format-entry (entry style project)
+  "Format posts with author and published data in the index page.
+
+ENTRY: file-name
+STYLE:
+PROJECT: `posts in this case."
+  (cond ((not (directory-name-p entry))
+         (format "*[[file:%s][%s]]*
+                 #+HTML: <p class='pubdate'>by %s on %s.</p>"
+                 entry
+                 (title-case-transform (org-publish-find-title entry project))
+                 (car (org-publish-find-property entry :author project))
+                 (format-time-string this-date-format
+                                     (org-publish-find-date entry project))))
+        ((eq style 'tree) (file-name-nondirectory (directory-file-name entry)))
+        (t entry)))
+
+
 (defun prepare-tag-files (plist)
   (let ((tag-map (build-tag-file-mapping "~/digital-garden")))
     (generate-tag-files 
@@ -144,6 +171,7 @@ PREFIX: String to prepend to file paths in links"
          :sitemap-filename "index.org"
          :sitemap-style list
 	 :sitemap-sort-files anti-chronologically
+	 :sitemap-format-entry blog/org-sitemap-format-entry
 
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
