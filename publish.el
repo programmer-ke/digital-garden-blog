@@ -162,13 +162,14 @@ PROJECT: `posts in this case."
       `(("posts"
          :base-directory "~/digital-garden/"
          :base-extension "org"
+	 :exclude "index.org"
          :publishing-directory "public/"
          :recursive t
          :publishing-function org-html-publish-to-html
 
          :auto-sitemap t
-         :sitemap-title "Blog Index"
-         :sitemap-filename "index.org"
+         :sitemap-title "Blog Posts"
+         :sitemap-filename "posts.org"
          :sitemap-style list
 	 :sitemap-sort-files anti-chronologically
 	 :sitemap-format-entry blog/org-sitemap-format-entry
@@ -181,6 +182,18 @@ PROJECT: `posts in this case."
          :author "krm"
          :email "krm@vger"
          :with-creator t)
+	("index"
+	 :base-directory "~/digital-garden"
+	 :publishing-directory "public/"
+         :publishing-function org-html-publish-to-html
+	 :exclude ".*"            ;; To exclude all files...
+	 :include ("index.org")   ;; ... except index.org.
+
+	 :html-head ,(blog/website-html-head)
+	 :html-preamble blog/website-html-preamble
+	 :html-postamble blog/website-html-postamble
+	 :html-html5-fancy nil
+	 :html-doctype "html5")
 	("pages"
          :base-directory "pages/"
          :base-extension "org"
@@ -214,17 +227,17 @@ PROJECT: `posts in this case."
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble)
 	("rss"
-	  :base-directory "~/digital-garden/"
-	  :base-extension "org"
-	  :html-link-home "https://digitalgarden.ken.ke/"
-	  :html-link-use-abs-url t
-	  :rss-extension "xml"
-	  :publishing-directory "public/"
-	  :publishing-function org-rss-publish-to-rss
-	  :section-numbers nil
-	  :exclude ".*"            ;; To exclude all files...
-	  :include ("index.org")   ;; ... except index.org.
-	  :table-of-contents nil)
+	 :base-directory "~/digital-garden/"
+	 :base-extension "org"
+	 :html-link-home "https://digitalgarden.ken.ke/"
+	 :html-link-use-abs-url t
+	 :rss-extension "xml"
+	 :publishing-directory "public/"
+	 :publishing-function org-rss-publish-to-rss
+	 :section-numbers nil
+	 :exclude ".*"            ;; To exclude all files...
+	 :include ("posts.org")   ;; ... except posts.org.
+	 :table-of-contents nil)
         ("css"
          :base-directory "css/"
          :base-extension "css"
@@ -243,4 +256,4 @@ PROJECT: `posts in this case."
          :publishing-directory "public/"
          :publishing-function org-publish-attachment
          :recursive t)
-        ("all" :components ("posts" "pages" "css" "img" "icons" "tags" "rss"))))
+        ("all" :components ("posts" "index" "pages" "css" "img" "icons" "tags" "rss"))))

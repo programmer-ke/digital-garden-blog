@@ -1,0 +1,3 @@
+#+TITLE: Recent Posts
+
+#+INCLUDE: "../../../digital-garden/posts.org" :lines "3-21"
