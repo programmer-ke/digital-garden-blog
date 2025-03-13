@@ -1,0 +1,8 @@
+#+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
+* TODO todo
+- [ ] 
+* IN_PROGRESS in progress
+- [ ] Fix RSS generation
+  - Use webfeeder instead of ox-rss as shown [[https://randyridenour.net/posts/2025-01-07-creating-rss-feed.html][here]]
+* DONE done
+- [X] Can generate basic website
