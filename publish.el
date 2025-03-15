@@ -6,7 +6,7 @@
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (setq package-list
-      '(htmlize ox-rss))
+      '(htmlize webfeeder))
 
 ;; install packages
 (dolist (package package-list)
@@ -15,7 +15,7 @@
 
 
 (require 'ox-publish)
-(require 'ox-rss)
+(require 'webfeeder)
 
 ;;; Tag files functionality
 (defun extract-all-tags ()
@@ -140,7 +140,7 @@ ENTRY: file-name
 STYLE:
 PROJECT: `posts in this case."
   (cond ((not (directory-name-p entry))
-         (format "*[[file:%s][%s]]*
+         (format "[[file:%s][%s]]
                  #+HTML: <p class='pubdate'>by %s on %s.</p>"
                  entry
                  (title-case-transform (org-publish-find-title entry project))
@@ -158,6 +158,23 @@ PROJECT: `posts in this case."
      "~/projects/digital-garden-blog/tags"
      "../")))
 
+(defun blog/generate-feed (plist)
+  (webfeeder-build
+   "atom.xml"
+   "public/"
+   "https://digitalgarden.ken.ke/"
+   (cl-remove-if
+    (lambda (f) (member f '("index.html" "posts.html")))
+    (mapcar (lambda (s) (replace-regexp-in-string "^public/" "" s))
+	    (directory-files-recursively
+	     "public"
+	     ".*\\.html$"
+	     nil
+	     (lambda (dir)
+	       (not (string-match-p (regexp-opt '("css" "img" "pages" "tags")) dir))))))
+   :title "Digital  Garden"
+   :description "Digital Garden"))
+
 (setq org-publish-project-alist
       `(("posts"
          :base-directory "~/digital-garden/"
@@ -166,6 +183,7 @@ PROJECT: `posts in this case."
          :publishing-directory "public/"
          :recursive t
          :publishing-function org-html-publish-to-html
+	 :completion-function blog/generate-feed
 
          :auto-sitemap t
          :sitemap-title "Blog Posts"
@@ -226,18 +244,6 @@ PROJECT: `posts in this case."
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble)
-	("rss"
-	 :base-directory "~/digital-garden/"
-	 :base-extension "org"
-	 :html-link-home "https://digitalgarden.ken.ke/"
-	 :html-link-use-abs-url t
-	 :rss-extension "xml"
-	 :publishing-directory "public/"
-	 :publishing-function org-rss-publish-to-rss
-	 :section-numbers nil
-	 :exclude ".*"            ;; To exclude all files...
-	 :include ("posts.org")   ;; ... except posts.org.
-	 :table-of-contents nil)
         ("css"
          :base-directory "css/"
          :base-extension "css"
@@ -256,4 +262,4 @@ PROJECT: `posts in this case."
          :publishing-directory "public/"
          :publishing-function org-publish-attachment
          :recursive t)
-        ("all" :components ("posts" "index" "pages" "css" "img" "icons" "tags" "rss"))))
+        ("all" :components ("posts" "index" "pages" "css" "img" "icons" "tags"))))
