@@ -18,7 +18,7 @@
 (require 'webfeeder)
 
 ;;; Tag files functionality
-(defun extract-all-tags ()
+(defun blog/extract-all-tags ()
   "Return a list of all tags from #+FILETAGS and headline inline-tags."
   (let (tags)
     ;; Extract #+FILETAGS (includes colon-delimited tags)
@@ -38,7 +38,7 @@
     (delete-dups tags)))
 
 
-(defun build-tag-file-mapping (directory)
+(defun blog/build-tag-file-mapping (directory)
   "Return hash table mapping tags to lists of files containing them."
   (interactive "DDirectory: ")
   (let ((tag-map (make-hash-table :test 'equal :size 200))
@@ -49,7 +49,7 @@
         (with-temp-buffer
           (insert-file-contents file)
           (org-mode)
-          (let ((tags (extract-all-tags))
+          (let ((tags (blog/extract-all-tags))
                 (clean-file (file-relative-name file directory)))
             (dolist (tag tags)
               (puthash tag 
@@ -57,7 +57,7 @@
                        tag-map))))))
     tag-map))
 
-(defun generate-tag-files (tag-map target-dir prefix)
+(defun blog/generate-tag-files (tag-map target-dir prefix)
   "Generate Org files with linked entries for all tags in TAG-MAP.
 TARGET-DIR: Directory to create tag files in
 PREFIX: String to prepend to file paths in links"
@@ -84,13 +84,13 @@ PREFIX: String to prepend to file paths in links"
 
 ;; test driving:
 
-;; (let ((tag-map (build-tag-file-mapping "~/digital-garden")))
-;;   (generate-tag-files 
+;; (let ((tag-map (blog/build-tag-file-mapping "~/digital-garden")))
+;;   (blog/generate-tag-files 
 ;;    tag-map
 ;;    "~/projects/digital-garden-blog/tags"
 ;;    "~/digital-garden/"))  ;; Prefix for link paths
 
-;;(let ((tag-map (build-tag-file-mapping "~/digital-garden/")))
+;;(let ((tag-map (blog/build-tag-file-mapping "~/digital-garden/")))
 ;;  (maphash (lambda (tag files)
 ;;             (message "Tag: %-20s | Files: %s" tag files))
 ;;           tag-map))
@@ -151,9 +151,9 @@ PROJECT: `posts in this case."
         (t entry)))
 
 
-(defun prepare-tag-files (plist)
-  (let ((tag-map (build-tag-file-mapping "~/digital-garden")))
-    (generate-tag-files 
+(defun blog/prepare-tag-files (plist)
+  (let ((tag-map (blog/build-tag-file-mapping "~/digital-garden")))
+    (blog/generate-tag-files 
      tag-map
      "~/projects/digital-garden-blog/tags"
      "../")))
@@ -231,7 +231,7 @@ PROJECT: `posts in this case."
          :base-extension "org"
          :publishing-directory "public/tags/"
          :recursive t
-	 :preparation-function prepare-tag-files
+	 :preparation-function blog/prepare-tag-files
          :publishing-function org-html-publish-to-html
 
          :auto-sitemap t
