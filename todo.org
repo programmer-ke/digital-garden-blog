@@ -1,8 +1,13 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-- [ ] 
+- [ ] elisp script cleanup and documentation
+
 * IN_PROGRESS in progress
-- [ ] Fix RSS generation
-  - Use webfeeder instead of ox-rss as shown [[https://randyridenour.net/posts/2025-01-07-creating-rss-feed.html][here]]
+
 * DONE done
+- [X] add tag filtering
+- [X] style tags page
+  - discarded
+- [X] Fix RSS generation
+  - Use webfeeder instead of ox-rss as shown [[https://randyridenour.net/posts/2025-01-07-creating-rss-feed.html][here]]
 - [X] Can generate basic website

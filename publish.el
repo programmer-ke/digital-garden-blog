@@ -75,7 +75,7 @@ PREFIX: String to prepend to file paths in links"
               files)))
        
        (with-temp-buffer
-         (insert "#+TITLE: Tag: " clean-tag "\n\n")
+         (insert "#+TITLE: " clean-tag "\n\n")
          (dolist (link link-lines)
            (insert link "\n"))
          (when (buffer-modified-p)
@@ -125,9 +125,9 @@ PREFIX: String to prepend to file paths in links"
 	   (format-time-string this-date-format (plist-get plist :time)) (plist-get plist :creator))))
 
 
-(defun title-case-transform (str)
-  "Convert STR with underscores/hyphens to title case words separated by spaces.
-Example: 'legal-docs' -> 'Legal Docs', 'collapsing_dominoes' -> 'Collapsing Dominoes'"
+(defun title-transform (str)
+  "Convert STR with underscores/hyphens to words separated by spaces.
+Example: 'legal-docs' -> 'legal docs', 'collapsing_dominoes' -> 'collapsing dominoes'"
   (let ((words (split-string str "[_-]" t)))
     (mapconcat 'identity
                words
@@ -143,7 +143,7 @@ PROJECT: `posts in this case."
          (format "[[file:%s][%s]]
                  #+HTML: <p class='pubdate'>by %s on %s.</p>"
                  entry
-                 (title-case-transform (org-publish-find-title entry project))
+                 (title-transform (org-publish-find-title entry project))
                  (car (org-publish-find-property entry :author project))
                  (format-time-string this-date-format
                                      (org-publish-find-date entry project))))

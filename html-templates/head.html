@@ -70,5 +70,34 @@
 
 <script type="text/javascript">
   // enable user preference for colour mode
-  document.documentElement.setAttribute("color-mode", "user")
+  document.documentElement.setAttribute("color-mode", "user");
+
+  document.addEventListener('DOMContentLoaded', function() {
+      // Customize tags page
+      if (window.location.pathname === '/tags/' || window.location.pathname === '/tags/index.html') {
+	  // add special class
+	  document.getElementById('content').classList.add('filterable-tags')
+
+	  // display text input
+	  const input = document.createElement('input');
+	  input.type = "text";
+	  input.placeholder = "Filter tags..";
+
+	  const listItems = document.querySelectorAll('div.filterable-tags ul li');
+	  
+	  input.addEventListener('input', function() {
+	      const filter = input.value.toLowerCase();
+	      listItems.forEach(item => {
+		  const text = item.textContent.toLowerCase();
+		  item.style.display = text.includes(filter) ? '' : 'none';
+	      });
+	  });
+
+	  header = document.querySelector('h1.title');
+	  header.insertAdjacentElement('afterend', input);
+
+      }
+
+  });
+
 </script>
