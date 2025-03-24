@@ -241,19 +241,19 @@ PROJECT: `posts in this case."
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble)
         ("css"
-         :base-directory ,(expand-file-name "css/" blog-content-directory)
+         :base-directory ,(expand-file-name "css/" blog-project-root)
          :base-extension "css"
          :publishing-directory ,(expand-file-name "css/" blog-publish-directory)
          :publishing-function org-publish-attachment
          :recursive t)
 	("img"
-         :base-directory ,(expand-file-name "img/" blog-content-directory)
+         :base-directory ,(expand-file-name "img/" blog-project-root)
          :base-extension "png"
          :publishing-directory ,(expand-file-name "img/" blog-publish-directory)
          :publishing-function org-publish-attachment
          :recursive t)
 	("icons"
-         :base-directory ,(expand-file-name "icons/" blog-content-directory)
+         :base-directory ,(expand-file-name "icons/" blog-project-root)
          :base-extension "\\(png\\|ico\\|webmanifest\\)"
          :publishing-directory ,blog-publish-directory
          :publishing-function org-publish-attachment
