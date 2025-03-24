@@ -1,6 +1,16 @@
+;; === Configurable Paths ===
+(defvar blog-project-root "~/projects/digital-garden-blog/"
+  "Base directory for the blog project")
+(defvar blog-content-directory "~/digital-garden/"
+  "Directory containing Org mode content files")
+(defvar blog-publish-directory (expand-file-name "public/" blog-project-root)
+  "Output directory for published content")
+(defvar blog-template-directory (expand-file-name "html-templates/" blog-project-root)
+  "Directory containing HTML templates")
+
 ;; install packages
 (require 'package)
-(setq package-user-dir "~/projects/digital-garden-blog/pkgs") ;; Installation path
+(setq package-user-dir (expand-file-name "pkgs" blog-project-root)) ;; Installation path
 (package-initialize)  ;; Auto-adds package dirs to load-path
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -98,7 +108,7 @@ PREFIX: String to prepend to file paths in links"
 
 (defun blog/website-html-head ()
   (with-temp-buffer
-    (insert-file-contents "~/projects/digital-garden-blog/html-templates/head.html")
+    (insert-file-contents (expand-file-name "head.html" blog-template-directory))
     (buffer-string)))
     
 
@@ -152,10 +162,10 @@ PROJECT: `posts in this case."
 
 
 (defun blog/prepare-tag-files (plist)
-  (let ((tag-map (blog/build-tag-file-mapping "~/digital-garden")))
+  (let ((tag-map (blog/build-tag-file-mapping blog-content-directory)))
     (blog/generate-tag-files 
      tag-map
-     "~/projects/digital-garden-blog/tags"
+     (expand-file-name "tags/" blog-project-root)
      "../")))
 
 (defun blog/generate-feed (plist)
@@ -177,10 +187,10 @@ PROJECT: `posts in this case."
 
 (setq org-publish-project-alist
       `(("posts"
-         :base-directory "~/digital-garden/"
+         :base-directory ,blog-content-directory
          :base-extension "org"
 	 :exclude "index.org"
-         :publishing-directory "public/"
+         :publishing-directory ,blog-publish-directory
          :recursive t
          :publishing-function org-html-publish-to-html
 	 :completion-function blog/generate-feed
@@ -201,8 +211,8 @@ PROJECT: `posts in this case."
          :email "krm@vger"
          :with-creator t)
 	("index"
-	 :base-directory "~/digital-garden"
-	 :publishing-directory "public/"
+	 :base-directory ,blog-content-directory
+	 :publishing-directory ,blog-publish-directory
          :publishing-function org-html-publish-to-html
 	 :exclude ".*"            ;; To exclude all files...
 	 :include ("index.org")   ;; ... except index.org.
@@ -227,9 +237,9 @@ PROJECT: `posts in this case."
          :email "krm@vger"
          :with-creator t)
 	("tags"
-         :base-directory "~/projects/digital-garden-blog/tags"
+         :base-directory ,(expand-file-name "tags/" blog-project-root)
          :base-extension "org"
-         :publishing-directory "public/tags/"
+         :publishing-directory ,(expand-file-name "tags/" blog-publish-directory)
          :recursive t
 	 :preparation-function blog/prepare-tag-files
          :publishing-function org-html-publish-to-html
