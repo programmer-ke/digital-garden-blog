@@ -92,20 +92,6 @@ PREFIX: String to prepend to file paths in links"
            (write-file tag-file)))))
    tag-map))
 
-;; test driving:
-
-;; (let ((tag-map (blog/build-tag-file-mapping "~/digital-garden")))
-;;   (blog/generate-tag-files 
-;;    tag-map
-;;    "~/projects/digital-garden-blog/tags"
-;;    "~/digital-garden/"))  ;; Prefix for link paths
-
-;;(let ((tag-map (blog/build-tag-file-mapping "~/digital-garden/")))
-;;  (maphash (lambda (tag files)
-;;             (message "Tag: %-20s | Files: %s" tag files))
-;;           tag-map))
-
-
 (defun blog/website-html-head ()
   (with-temp-buffer
     (insert-file-contents (expand-file-name "head.html" blog-template-directory))
