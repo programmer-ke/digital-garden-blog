@@ -157,7 +157,7 @@ PROJECT: `posts in this case."
 (defun blog/generate-feed (plist)
   (webfeeder-build
    "atom.xml"
-   ,blog-publish-directory
+   blog-publish-directory
    "https://digitalgarden.ken.ke/"
    (cl-remove-if
     (lambda (f) (member f '("index.html" "posts.html")))
