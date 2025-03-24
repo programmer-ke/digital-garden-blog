@@ -1,7 +1,22 @@
-;; === Configurable Paths ===
-(defvar blog-project-root "~/projects/digital-garden-blog/"
+;; === Configuration ===
+(defcustom blog-config
+  '((project-root   . "~/projects/digital-garden-blog/")
+    (content-dir    . "~/digital-garden/")
+    (title          . "Digital Garden")
+    (url            . "https://digitalgarden.ken.ke/")
+    (author         . "krm")
+    (email          . "krm@vger")
+    (feed-title     . "Digital Garden Feed")
+    (feed-file      . "atom.xml"))
+  "Configuration settings for the blog in alist format"
+  :type '(alist 
+          :key-type symbol
+          :value-type (choice string directory file))
+  :group 'blog)
+
+(defvar blog-project-root (alist-get 'project-root blog-config)
   "Base directory for the blog project")
-(defvar blog-content-directory "~/digital-garden/"
+(defvar blog-content-directory (alist-get 'content-dir blog-config)
   "Directory containing Org mode content files")
 (defvar blog-publish-directory (expand-file-name "public/" blog-project-root)
   "Output directory for published content")
@@ -111,13 +126,13 @@ PREFIX: String to prepend to file paths in links"
 				   (car (plist-get plist :author)))))
   ;; Preamble
   (with-temp-buffer
-    (insert-file-contents "~/projects/digital-garden-blog/html-templates/preamble.html") (buffer-string)))
+    (insert-file-contents (expand-file-name "preamble.html" blog-template-directory)) (buffer-string)))
 
 (defun blog/website-html-postamble (plist)
   "PLIST."
   (concat (format
 	   (with-temp-buffer
-	     (insert-file-contents "~/projects/digital-garden-blog/html-templates/postamble.html") (buffer-string))
+	     (insert-file-contents (expand-file-name "postamble.html" blog-template-directory)) (buffer-string))
 	   (format-time-string this-date-format (plist-get plist :time)) (plist-get plist :creator))))
 
 
@@ -158,7 +173,7 @@ PROJECT: `posts in this case."
   (webfeeder-build
    "atom.xml"
    blog-publish-directory
-   "https://digitalgarden.ken.ke/"
+   ,(alist-get 'url blog-config)
    (cl-remove-if
     (lambda (f) (member f '("index.html" "posts.html")))
     (mapcar (lambda (s) (replace-regexp-in-string "^public/" "" s))
@@ -168,7 +183,7 @@ PROJECT: `posts in this case."
 	     nil
 	     (lambda (dir)
 	       (not (string-match-p (regexp-opt '("css" "img" "pages" "tags")) dir))))))
-   :title "Digital  Garden"
+   :title ,(alist-get 'feed-title blog-config)
    :description "Digital Garden"))
 
 (setq org-publish-project-alist
@@ -191,10 +206,11 @@ PROJECT: `posts in this case."
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble
+	 :html-link-home ,(alist-get 'url blog-config)
 	 :html-html5-fancy nil
 	 :html-doctype "html5"
-         :author "krm"
-         :email "krm@vger"
+         :author ,(alist-get 'author blog-config)
+         :email ,(alist-get 'email blog-config)
          :with-creator t)
 	("index"
 	 :base-directory ,blog-content-directory
