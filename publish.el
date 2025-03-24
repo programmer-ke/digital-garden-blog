@@ -173,7 +173,7 @@ PROJECT: `posts in this case."
   (webfeeder-build
    "atom.xml"
    blog-publish-directory
-   ,(alist-get 'url blog-config)
+   (alist-get 'url blog-config)
    (cl-remove-if
     (lambda (f) (member f '("index.html" "posts.html")))
     (mapcar (lambda (s) (replace-regexp-in-string "^public/" "" s))
@@ -183,7 +183,7 @@ PROJECT: `posts in this case."
 	     nil
 	     (lambda (dir)
 	       (not (string-match-p (regexp-opt '("css" "img" "pages" "tags")) dir))))))
-   :title ,(alist-get 'feed-title blog-config)
+   :title (alist-get 'feed-title blog-config)
    :description "Digital Garden"))
 
 (setq org-publish-project-alist
