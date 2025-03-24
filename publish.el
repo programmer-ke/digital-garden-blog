@@ -157,7 +157,7 @@ PROJECT: `posts in this case."
 (defun blog/generate-feed (plist)
   (webfeeder-build
    "atom.xml"
-   "public/"
+   "public/"  # Use parameterized variable here AI!
    "https://digitalgarden.ken.ke/"
    (cl-remove-if
     (lambda (f) (member f '("index.html" "posts.html")))
