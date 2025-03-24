@@ -1,8 +1,8 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-- [ ] elisp script cleanup and documentation
 
 * IN_PROGRESS in progress
+- [ ] elisp script cleanup and documentation
 
 * DONE done
 - [X] add tag filtering
