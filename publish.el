@@ -213,7 +213,6 @@ PROJECT: `posts in this case."
 	 :html-head ,(blog/website-html-head)
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble
-	 :html-link-home ,(alist-get 'url blog-config)
 	 :html-html5-fancy nil
 	 :html-doctype "html5"
          :author ,(alist-get 'author blog-config)
