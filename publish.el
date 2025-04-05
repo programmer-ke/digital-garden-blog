@@ -6,7 +6,8 @@
     (url            . "https://digitalgarden.ken.ke/")
     (author         . "krm")
     (email          . "krm@vger")
-    (feed-title     . "Digital Garden Feed")
+    (feed-title     . "Digital Garden")
+    (feed-description . "Digital Garden Feed")
     (feed-file      . "atom.xml"))
   "Configuration settings for the blog in alist format"
   :type '(alist 
@@ -128,7 +129,8 @@ PREFIX: String to prepend to file paths in links"
   (format
    (with-temp-buffer
      (insert-file-contents (expand-file-name "preamble.html" blog-template-directory)) (buffer-string))
-   (alist-get 'title blog-config)))
+   (alist-get 'title blog-config)
+   (alist-get 'feed-file blog-config)))
 
 (defun blog/website-html-postamble (plist)
   "PLIST."
@@ -189,7 +191,7 @@ PROJECT: `posts in this case."
 	     (lambda (dir)
 	       (not (string-match-p (regexp-opt '("css" "img" "pages" "tags")) dir))))))
    :title (alist-get 'feed-title blog-config)
-   :description "Digital Garden"))
+   :description (alist-get 'feed-description blog-config)))
 
 (setq org-publish-project-alist
       `(("posts"
