@@ -125,8 +125,10 @@ PREFIX: String to prepend to file paths in links"
 				   (org-export-get-date plist this-date-format)
 				   (car (plist-get plist :author)))))
   ;; Preamble
-  (with-temp-buffer
-    (insert-file-contents (expand-file-name "preamble.html" blog-template-directory)) (buffer-string)))
+  (format
+   (with-temp-buffer
+     (insert-file-contents (expand-file-name "preamble.html" blog-template-directory)) (buffer-string))
+   (alist-get 'title blog-config)))
 
 (defun blog/website-html-postamble (plist)
   "PLIST."
@@ -134,6 +136,7 @@ PREFIX: String to prepend to file paths in links"
 	   (with-temp-buffer
 	     (insert-file-contents (expand-file-name "postamble.html" blog-template-directory)) (buffer-string))
 	   (alist-get 'email blog-config)
+	   (alist-get 'title blog-config)
 	   (format-time-string this-date-format (plist-get plist :time))
 	   (plist-get plist :creator))))
 
