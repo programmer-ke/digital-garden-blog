@@ -171,7 +171,7 @@ PROJECT: `posts in this case."
 
 (defun blog/generate-feed (plist)
   (webfeeder-build
-   "atom.xml"
+   (alist-get 'feed-file blog-config)
    blog-publish-directory
    (alist-get 'url blog-config)
    (cl-remove-if
