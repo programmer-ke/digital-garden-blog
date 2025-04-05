@@ -1,10 +1,13 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-
+- [ ] handle draft posts
+  - Create post templates with easy initialization
+- [ ] right-pad code blocks
+  
 * IN_PROGRESS in progress
-- [ ] elisp script cleanup and documentation
 
 * DONE done
+- [X] elisp script cleanup and documentation
 - [X] add tag filtering
 - [X] style tags page
   - discarded
