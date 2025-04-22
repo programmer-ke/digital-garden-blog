@@ -1,10 +1,15 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-- [ ] handle draft posts
-  - Create post templates with easy initialization
 - [ ] right-pad code blocks
+- [ ] relative linking external assets
+- [ ] Initialize landing page (recent posts)  
   
 * IN_PROGRESS in progress
+- [-] handle draft posts
+  - [-] Create post templates with easy initialization
+    - [X] create a post template
+    - [ ] create a dsa template
+  - [ ] Ignore draft files in publish step
 
 * DONE done
 - [X] elisp script cleanup and documentation
