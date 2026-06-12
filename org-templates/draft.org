@@ -1,0 +1,5 @@
+#+TITLE: %^{Title}
+#+DATE: <%<%Y-%m-%d>>
+#+FILETAGS: %^G
+
+%?

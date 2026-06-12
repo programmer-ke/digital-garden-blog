@@ -1,0 +1,19 @@
+#+TITLE: %^{Title}
+#+DATE: <%<%Y-%m-%d>>
+#+FILETAGS: %^G
+#+PROPERTY: header-args :results output :session *shared*
+
+* %^{Title}
+
+** Description
+
+%?
+
+** Approach
+
+** Solution
+
+** Analysis
+
+** Further Discussion
+

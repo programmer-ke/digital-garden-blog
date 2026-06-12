@@ -2,16 +2,24 @@
 * TODO todo
 - [ ] right-pad code blocks
 - [ ] relative linking external assets
-- [ ] Initialize landing page (recent posts)  
+- [ ] Initialize landing page (recent posts)
+- [ ] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
+- [ ] prevent 00:00 time in files produced from drafts
   
 * IN_PROGRESS in progress
-- [-] handle draft posts
-  - [-] Create post templates with easy initialization
-    - [X] create a post template
-    - [ ] create a dsa template
-  - [ ] Ignore draft files in publish step
 
 * DONE done
+- [X] handle draft posts
+  - [X] Create post templates with easy initialization
+    - [X] create a post template
+    - [X] create a dsa template
+      - issues to debug:
+	- presence of *.draft.org causes publishing to fail (fixed: issue was unrelated)
+	  - fixed. issue was unrelated
+	- The newer dsa additions not showing in index (e.g. group anagrams)
+	  - now showing up
+  - [X] Ignore draft files in publish step
+    - Done by using custom extension: e.g. foo.org.draft
 - [X] elisp script cleanup and documentation
 - [X] add tag filtering
 - [X] style tags page

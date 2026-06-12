@@ -1,6 +1,6 @@
 # Makefile for myblog
 
-.PHONY: all publish publish_no_init
+.PHONY: all publish reset clean
 
 all: publish
 reset: clean publish
