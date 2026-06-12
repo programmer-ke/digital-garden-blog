@@ -4,7 +4,7 @@
     (content-dir    . "~/digital-garden/")
     (title          . "Digital Garden")
     (url            . "https://digitalgarden.ken.ke/")
-    (author         . "krm")
+    (author         . ("krm"))
     (email          . "krm@vger")
     (feed-title     . "Digital Garden")
     (feed-description . "Digital Garden Feed")
