@@ -1,6 +1,5 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-- [ ] right-pad code blocks
 - [ ] relative linking external assets
 - [ ] Initialize landing page (recent posts)
 - [ ] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
@@ -8,7 +7,10 @@
   
 * IN_PROGRESS in progress
 
+
+  
 * DONE done
+- [X] left-pad code blocks
 - [X] handle draft posts
   - [X] Create post templates with easy initialization
     - [X] create a post template
