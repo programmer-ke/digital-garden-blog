@@ -41,12 +41,26 @@
       padding-left: 0.5rem;
   }
 
+  /* Enable smooth transitions */
+  @view-transition {
+      navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+      animation: fade 0.3s ease both;
+  }
+
+  @keyframes fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+  }
+
   @media (max-width: 768px) {
       nav ul li {
 	  width: unset;
       }
   }
-
 
  @media (prefers-color-scheme: dark) {
    :root[color-mode="user"] {
@@ -105,4 +119,18 @@
 
   });
 
+</script>
+
+<!-- pre-render speculation rules (chrome) --->
+<script type="speculationrules">
+{
+  "prerender": [
+    {
+      "where": {
+        "selector_matches": "a"
+      },
+      "eagerness": "moderate"
+    }
+  ]
+}
 </script>

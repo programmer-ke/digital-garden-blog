@@ -2,14 +2,12 @@
 * TODO todo
 
 
-- [ ] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
 - [ ] prevent 00:00 time in files produced from drafts
   
 * IN_PROGRESS in progress
-
-
   
 * DONE done
+- [X] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
 - [X] Initialize landing page (recent posts)
 - [X] left-pad code blocks
 - [X] handle draft posts
