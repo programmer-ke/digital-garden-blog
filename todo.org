@@ -1,7 +1,7 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
-- [ ] relative linking external assets
-- [ ] Initialize landing page (recent posts)
+
+
 - [ ] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
 - [ ] prevent 00:00 time in files produced from drafts
   
@@ -10,6 +10,7 @@
 
   
 * DONE done
+- [X] Initialize landing page (recent posts)
 - [X] left-pad code blocks
 - [X] handle draft posts
   - [X] Create post templates with easy initialization
@@ -29,3 +30,7 @@
 - [X] Fix RSS generation
   - Use webfeeder instead of ox-rss as shown [[https://randyridenour.net/posts/2025-01-07-creating-rss-feed.html][here]]
 - [X] Can generate basic website
+
+* Postponed
+
+- [ ] relative linking external assets

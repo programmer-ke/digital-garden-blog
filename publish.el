@@ -176,6 +176,11 @@ PROJECT: `posts in this case."
      (expand-file-name "tags/" blog-project-root)
      "../")))
 
+(defun blog/copy-index-template (plist)
+  (let ((src (expand-file-name "org-templates/index.org" blog-project-root))
+	(dst (expand-file-name "index.org" blog-content-directory)))
+    (copy-file src dst t)))
+
 (defun blog/generate-feed (plist)
   (webfeeder-build
    (alist-get 'feed-file blog-config)
@@ -222,6 +227,7 @@ PROJECT: `posts in this case."
 	 :base-directory ,blog-content-directory
 	 :publishing-directory ,blog-publish-directory
          :publishing-function org-html-publish-to-html
+	 :preparation-function blog/copy-index-template
 	 :exclude ".*"            ;; To exclude all files...
 	 :include ("index.org")   ;; ... except index.org.
 
