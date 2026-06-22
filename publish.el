@@ -122,7 +122,7 @@ PREFIX: String to prepend to file paths in links"
   "PLIST: An entry."
   (if (org-export-get-date plist this-date-format)
       (plist-put plist
-		 :subtitle (format "Published on %s by %s."
+		 :subtitle (format "Published on %s by %s"
 				   (org-export-get-date plist this-date-format)
 				   (car (plist-get plist :author)))))
   ;; Preamble
@@ -159,7 +159,7 @@ STYLE:
 PROJECT: `posts in this case."
   (cond ((not (directory-name-p entry))
          (format "[[file:%s][%s]]
-                 #+HTML: <p class='pubdate'>by %s on %s.</p>"
+                 #+HTML: <p class='pubdate'>by %s on %s</p>"
                  entry
                  (title-transform (org-publish-find-title entry project))
                  (car (org-publish-find-property entry :author project))
