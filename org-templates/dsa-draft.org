@@ -1,5 +1,5 @@
 #+TITLE: %^{Title}
-#+DATE: <%<%Y-%m-%d>>
+#+DATE: %T
 #+FILETAGS: %^G
 #+PROPERTY: header-args :results output :session *shared*
 
