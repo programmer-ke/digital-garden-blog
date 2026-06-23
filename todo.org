@@ -1,12 +1,11 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
 
-
-- [ ] prevent 00:00 time in files produced from drafts
   
 * IN_PROGRESS in progress
   
 * DONE done
+- [x] prevent 00:00 time in files produced from drafts
 - [X] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
 - [X] Initialize landing page (recent posts)
 - [X] left-pad code blocks
