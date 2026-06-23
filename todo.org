@@ -1,6 +1,8 @@
 #+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
 * TODO todo
 
+- [ ] Consider adding meta tag generated from page metadata
+  - see latest Chat
   
 * IN_PROGRESS in progress
   
