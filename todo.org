@@ -1,12 +1,12 @@
-#+TODO: TODO(t) IN_PROGRESS(p) | DONE(d)
+#+TODO: TODO(t) IN_PROGRESS(p) | DONE(d) DISCARDED (q)
 * TODO todo
-
-- [ ] Consider adding meta tag generated from page metadata
-  - see latest Chat
   
 * IN_PROGRESS in progress
   
 * DONE done
+- [X] fix copyright section
+  - remove year (not compulsory)
+  - Set author name
 - [x] prevent 00:00 time in files produced from drafts
 - [X] Consider [[https://www.jonoalderson.com/conjecture/its-time-for-modern-css-to-kill-the-spa/][page transition]] CSS
 - [X] Initialize landing page (recent posts)
@@ -30,6 +30,9 @@
   - Use webfeeder instead of ox-rss as shown [[https://randyridenour.net/posts/2025-01-07-creating-rss-feed.html][here]]
 - [X] Can generate basic website
 
-* Postponed
+* DISCARDED Postponed/Discarded
 
 - [ ] relative linking external assets
+- [ ] Consider adding meta tag generated from page metadata
+  - see latest Chat
+  - https://developer.chrome.com/docs/lighthouse/seo/meta-description/

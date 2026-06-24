@@ -1,5 +1,3 @@
-# Makefile for myblog
-
 .PHONY: all publish reset clean
 
 all: publish

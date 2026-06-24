@@ -138,7 +138,7 @@ PREFIX: String to prepend to file paths in links"
 	   (with-temp-buffer
 	     (insert-file-contents (expand-file-name "postamble.html" blog-template-directory)) (buffer-string))
 	   (alist-get 'email blog-config)
-	   (alist-get 'title blog-config)
+	   (car (alist-get 'author blog-config))
 	   (format-time-string this-date-format (plist-get plist :time))
 	   (plist-get plist :creator))))
 
