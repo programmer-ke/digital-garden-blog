@@ -50,9 +50,10 @@
     ;; Extract #+FILETAGS (includes colon-delimited tags)
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward "^#\\+FILETAGS:\\s-*:\\([^:\n]+\\)" nil t)
-        (dolist (tag (split-string (match-string 1) ":" t))
-          (push tag tags))))
+      (while (re-search-forward "^#\\+FILETAGS:\\s-*\\(.*\\)" nil t)
+        (let ((raw (string-trim (match-string 1))))
+          (dolist (tag (split-string raw ":" t))
+            (push tag tags)))))
 
     ;; Extract headline inline tags (also colon-delimited)
     (save-excursion
