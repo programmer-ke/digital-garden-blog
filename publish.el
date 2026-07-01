@@ -159,13 +159,17 @@ ENTRY: file-name
 STYLE:
 PROJECT: `posts in this case."
   (cond ((not (directory-name-p entry))
-         (format "[[file:%s][%s]]
-                 #+HTML: <p class='pubdate'>by %s on %s</p>"
-                 entry
-                 (title-transform (org-publish-find-title entry project))
-                 (car (org-publish-find-property entry :author project))
-                 (format-time-string this-date-format
-                                     (org-publish-find-date entry project))))
+         (let ((author (let ((found (car (org-publish-find-property entry :author project))))
+                         (if (equal found user-full-name)
+                             (car (alist-get 'author blog-config))
+                           found))))
+           (format "[[file:%s][%s]]
+                   #+HTML: <p class='pubdate'>by %s on %s</p>"
+                   entry
+                   (title-transform (org-publish-find-title entry project))
+                   author
+                   (format-time-string this-date-format
+                                       (org-publish-find-date entry project)))))
         ((eq style 'tree) (file-name-nondirectory (directory-file-name entry)))
         (t entry)))
 
@@ -236,6 +240,8 @@ PROJECT: `posts in this case."
 	 :html-preamble blog/website-html-preamble
 	 :html-postamble blog/website-html-postamble
 	 :html-html5-fancy nil
+         :author ,(alist-get 'author blog-config)
+         :email ,(alist-get 'email blog-config)
 	 :html-doctype "html5")
 	("pages"
          :base-directory "pages/"
@@ -249,7 +255,8 @@ PROJECT: `posts in this case."
 	 :html-html5-fancy nil
 	 :html-doctype "html5"
 	 
-         :email "krm@vger"
+         :author ,(alist-get 'author blog-config)
+         :email ,(alist-get 'email blog-config)
          :with-creator t)
 	("tags"
          :base-directory ,(expand-file-name "tags/" blog-project-root)
